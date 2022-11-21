@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+
+    <title>flicker_search</title>
+</head>
+<body>
+    <h4 style="color:rgb(115, 6, 216); font-weight:bolder" class="mt-5 ml-5">画像検索</h4>
+    <div class="row mt-3 ml-5">
+        <div class="col-xs-4">
+
+            <div class="input-group mb-3">
+                <input type="search" id="keyword" name="keyword" class="form-control" autocomplete="on">
+                <div class="input-group-append">
+                    <input type="button" id="button" value="SEARCH" class="input-group btn">
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="photo-container">
+        <div id="photo_list" style="display: flex; flex-wrap: wrap;">
+
+        </div>
+    </div>
+<script>
+    window.addEventListener("DOMContentLoaded", function() {
+
+        // 1.入力されたキーワードで画像を検索する
+        var button = document.getElementById('button');
+        // SEARCHボタンが押されたとき
+        button.addEventListener("click", function() {
+            // 入力されたキーワードを取得
+            var input = document.getElementById('keyword');
+            var keyword = input.value
+            // scriptタグをつくる
+            var script = document.createElement('script');
+            /* srcにflickerAPIのURLを作成
+                キーワードをURLエンコードによりtagsのパラメータに指定する(全角文字をURLで使用できる文字列に変換)  */
+            script.src = "https://api.flickr.com/services/feeds/photos_public.gne?format=json&tags=" + encodeURIComponent(keyword);
+            // Flickr APIを呼び出す
+            document.body.appendChild(script);
+            // 呼び出し後にscriptタグを削除する
+            document.body.removeChild(script);
+        });
+    });
+
+        // 2.検索結果を取得する
+        function jsonFlickrFeed(data) {
+            // 結果を表示する欄をクリア
+            var photo_list = document.getElementById('photo_list');
+            photo_list.innerHTML = "";
+            // itemキーで検索結果を取得する
+            for (i=0; i<data.items.length; i++) {
+                // 画像を取得
+                var item = data.items[i];
+                // imgのelementを作成
+                var img = document.createElement('img');
+                // imgのsrcに検索結果のURLを指定
+                img.src = item.media.m;
+                photo_list.appendChild(img);
+            }
+        }
+</script>
+</body>
+</html>
