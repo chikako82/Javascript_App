@@ -7,7 +7,7 @@ const panels = document.querySelectorAll('.panel');
 
     function toggleActive(e) {
       console.log(e.propertyName);
-      // transitionがおわたっ時に複数の動作が発生するためトリガーを指定する
+      // transitionが終わった後に複数の動作が発生するためトリガーを指定する
       if(e.propertyName.includes('flex')) {
         this.classList.toggle('open-active');
       }
