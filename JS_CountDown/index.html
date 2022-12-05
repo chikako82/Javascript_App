@@ -33,8 +33,9 @@
             return count;
         }
 
-        let goal = new Date(2024, 7, 26);
+        let goal = new Date(2024, 6, 26); // 月は実際の月マイナス１
         // goal.setHours();
+        console.log(goal);
         console.log(countdown(goal));
 
         function recalc() {
