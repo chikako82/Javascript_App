@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Countdown</title>
+</head>
+<body>
+    <section>
+        <h2><span>カウントダウン</span><br>パリオリンピックまで</h2>
+        <p class="timer">あと
+            <span id="day"></span>日
+            <span id="hour"></span>時間
+            <span id="min"></span>分
+            <span id="sec"></span>秒
+        </p>
+    </section>
+
+    <script>
+        'use strict';
+
+        function countdown(due) {
+            const now = new Date();
+            
+            const rest = due.getTime() - now.getTime();
+            const sec = Math.floor(rest / 1000) % 60;
+            const min = Math.floor(rest / 1000 / 60) % 60;
+            const hours = Math.floor(rest / 1000 / 60 / 60) % 24;
+            const days = Math.floor(rest / 1000 / 60 / 60 / 24);
+            const count = [days, hours, min, sec];
+
+            return count;
+        }
+
+        let goal = new Date(2024, 7, 26);
+        // goal.setHours();
+        console.log(countdown(goal));
+
+        function recalc() {
+        const counter = countdown(goal);
+        document.getElementById('day').textContent = counter[0];
+        document.getElementById('hour').textContent = counter[1];
+        // 分と秒は1桁の際、頭に0をつける
+        document.getElementById('min').textContent = String(counter[2]).padStart(2, '0');
+        document.getElementById('sec').textContent = String(counter[3]).padStart(2, '0');
+        refresh();
+        }
+
+        function refresh() {
+            setTimeout(recalc, 1000);
+        }
+
+        recalc();
+    </script>
+</body>
+</html>
