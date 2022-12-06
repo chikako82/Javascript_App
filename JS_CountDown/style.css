@@ -61,3 +61,11 @@ h3 {
 .big {
     font-size: 30px;
 }
+
+.music {
+    position: absolute;
+    top: 2rem;
+    left: 2rem;
+    display: flex;
+    justify-content: center;
+}
