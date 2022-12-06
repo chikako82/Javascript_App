@@ -1,0 +1,58 @@
+body {
+    min-height: 100vh;
+    background-image: url(./unnamed-2.jpg);
+    background-size: 60%;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+section {
+    padding-top: 10rem;
+    color: white;
+    text-align: center;
+}
+
+h1 {
+    font-weight: bold;
+    font-size: 48px;
+}
+
+h3 {
+    font-weight: bold;
+}
+
+.gradation {
+    background: linear-gradient(90deg, #092ee9, #f4ecf3 50%, #f3260b);
+    background: -webkit-linear-gradient(0deg, #092ee9, #f4ecf3 50%, #f3260b);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.timer {
+    margin-top: 3rem;
+    display: flex;
+    justify-content: center;
+}
+
+.timer-box {
+    width: 100px;
+    height: 100px;
+}
+.timer-text {
+    font-style: italic;
+    font-size: 16px;
+}
+
+.timer-card {
+    width: 80%;
+    height: 78%;
+    font-weight: 800;
+    font-size: 30px;
+}
+
+.text {
+    padding-top: 3rem;
+    text-align: center;
+    font-weight: bold;
+    font-size: 24px;
+}
