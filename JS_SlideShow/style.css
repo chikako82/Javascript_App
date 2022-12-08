@@ -148,3 +148,7 @@ img {
     height: 20px;
     background: url(./img/arrow-right.svg) no-repeat;
 }
+
+#page {
+    color: white;
+}
