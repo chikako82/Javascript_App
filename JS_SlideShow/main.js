@@ -1,6 +1,12 @@
 'use strict';
 
 const image = ['img/comida1.JPG', 'img/comida2.JPG', 'img/comida3.JPG', 'img/comida4.jpg', 'img/comida5.jpg', 'img/comida6.JPG', 'img/comida7.JPG', 'img/comida8.JPG', 'img/comida9.JPG', 'img/comida10.JPG', 'img/comida11.JPG', 'img/comida12.JPG'];
+
+// 画像をプリロードしておく
+image.forEach(function(item, index) {
+    preloadImage(item);
+});
+
 let current = 0;
 
 function slideShow(num) {
@@ -13,6 +19,11 @@ function slideShow(num) {
 
 function page() {
     document.getElementById('page').textContent = `${current + 1}/${image.length}`;
+}
+
+function preloadImage(path) {
+    let imgTag = document.createElement('img');
+    imgTag.src = path;
 }
 
 page();
