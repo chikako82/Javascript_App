@@ -17,7 +17,7 @@ function utcToJSTime(utcTime) {
 // 天気データの取得
 function ajaxRequest(lat, long) {
     const url = 'https://api.openweathermap.org/data/2.5/forecast';
-    const appId = '20b61881c1ab6a770f7efc2d90536cbf';
+    const appId = '';
 
     $.ajax({
         url: url,
