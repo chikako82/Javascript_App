@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>HTML5 Canvas</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css">
+</head>
+<body>
+  <div class="icons">
+    <i class="fa-solid fa-paintbrush fa-3x"></i>
+    <i class="fa-solid fa-pen fa-3x"></i>
+    <i class="fa-solid fa-pen-nib fa-3x"></i>
+    <i class="fa-solid fa-eraser fa-3x"></i>
+  </div>
+
+<canvas id="draw" width="800" height="800"></canvas>
+
+<script>
+  const canvas = document.querySelector('#draw');
+  const ctx = canvas.getContext('2d');
+  // window.innerWidth/Heightでウィンドウ幅と高さを取得
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+  // strokeStyleでラインの色初期値を指定
+  ctx.strokeStyle = '#BADA55';
+  // lineJoin/lineCapで線の終わり、初めの形を指定
+  ctx.lineJoin = 'round';
+  ctx.lineCap = 'round';
+
+  const paintbrush = document.querySelector('.fa-paintbrush');
+  const pen = document.querySelector('.fa-pen');
+  const pennib = document.querySelector('.fa-pen-nib');
+  const eraser = document.querySelector('.fa-eraser');
+
+  ctx.lineWidth = 100;
+  // ctx.globalCompositeOperation = 'multiply';
+
+  let isDrawing = false;
+  let lastX = 0;
+  let lastY = 0;
+  let hue = 0;
+
+  function draw(e) {
+    if(!isDrawing) return; // マウスが離れたとき、ここで処理を停止
+    // console.log(e);
+    // hslサイトからグラデーションの色を取得
+    ctx.strokeStyle = `hsl(${hue}, 100%, 50%)`;
+    ctx.beginPath();
+    // start from
+    ctx.moveTo(lastX, lastY);
+    // go to
+    ctx.lineTo(e.offsetX, e.offsetY);
+    ctx.stroke();
+    lastX = e.offsetX;
+    lastY = e.offsetY;
+    hue++;
+    if (hue >= 360) {
+      hue = 0;
+    }
+  }
+  function iconClick() {
+    canvas.addEventListener('mousedown',(e)=> {
+    isDrawing = true;
+    lastX = e.offsetX;
+    lastY = e.offsetY;
+    });
+    canvas.addEventListener('mousemove', draw);
+    canvas.addEventListener('mouseup',()=> isDrawing = false);
+    canvas.addEventListener('mouseout',()=> isDrawing = false);
+  }
+  
+  paintbrush.addEventListener('click', function() {
+    ctx.globalCompositeOperation = 'source-over';
+    ctx.lineWidth = 50;
+    iconClick();
+  });
+  pen.addEventListener('click', function() {
+    ctx.globalCompositeOperation = 'source-over';
+    ctx.lineWidth = 20;
+    iconClick();
+  });
+  pennib.addEventListener('click', function() {
+    ctx.globalCompositeOperation = 'source-over';
+    ctx.lineWidth = 5;
+    iconClick();
+  });
+  eraser.addEventListener('click', function() {
+    ctx.globalCompositeOperation = 'destination-out';
+    ctx.lineWidth = 100;
+    iconClick();
+  })
+  
+</script>
+
+<style>
+  html, body {
+    margin: 0;
+  }
+  .icons {
+    margin: 30px 30px 0;
+    display: flex;
+  }
+  i {
+    width: 5rem;
+    height:5rem;
+    margin: 1rem;
+  }
+  canvas {
+    margin: 0 1rem 1rem;
+    border: 5px solid rgb(171, 165, 165);
+  }
+</style>
+
+</body>
+</html>
